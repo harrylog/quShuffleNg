@@ -1,0 +1,31 @@
+<!-- <p>question-list works!</p> -->
+
+<ng-container *ngIf="questions?.length; else nothing">
+  <div *ngFor="let qu of questions; let quIndex = index">
+    <p>{{ quIndex + 1 }}. {{ qu.question }}</p>
+    <button
+      id="createBtn"
+      *ngFor="let answer of qu.allPossAns; let ansIndex = index"
+      (click)="selectChoice(quIndex, ansIndex, answer)"
+      class="button btn btn-secondary"
+      [class.selected]="selectedButtonIndices[quIndex] === ansIndex"
+    >
+      {{ answer }}
+    </button>
+  </div>
+</ng-container>
+
+<div *ngIf="isQuestionaireComplete()">
+  <button class="btn btn-primary" (click)="gatherDataForResult()">
+    show results
+  </button>
+</div>
+
+<div>
+  <button class="btn btn-warning" routerLink="/quizzes">create new quiz</button>
+</div>
+<ng-template #nothing>
+  <p>no questions..</p>
+</ng-template>
+
+<ng-content></ng-content>

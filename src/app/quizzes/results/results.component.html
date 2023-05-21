@@ -1,0 +1,21 @@
+<div *ngFor="let qu of questions; let quIndex = index">
+  <p>{{ quIndex + 1 }}. {{ qu.question }}</p>
+  <button
+    id="createBtn"
+    *ngFor="let answer of qu.allPossAns; let ansIndex = index"
+    class="button btn btn-secondary"
+    [class.selectedCorrect]="
+      (results[quIndex] === ansIndex && correctnessArray[quIndex]) ||
+      answer == correctAnswers[quIndex]
+    "
+    [class.selectedInCorrect]="
+      results[quIndex] === ansIndex && !correctnessArray[quIndex]
+    "
+  >
+    {{ answer }}
+  </button>
+</div>
+
+<div>
+  <button class="btn btn-warning" routerLink="/quizzes">create new quiz</button>
+</div>

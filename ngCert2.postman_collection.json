@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "34e57c43-5958-44ae-b199-94d14bb23c07",
+		"name": "ngCert2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11508028"
+	},
+	"item": [
+		{
+			"name": "https://opentdb.com/api_category.php",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://opentdb.com/api_category.php",
+					"protocol": "https",
+					"host": [
+						"opentdb",
+						"com"
+					],
+					"path": [
+						"api_category.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://opentdb.com/api.php?amount=5&category=11&difficulty=easy&type=multiple",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://opentdb.com/api.php?amount=5&category=11&difficulty=easy&type=multiple",
+					"protocol": "https",
+					"host": [
+						"opentdb",
+						"com"
+					],
+					"path": [
+						"api.php"
+					],
+					"query": [
+						{
+							"key": "amount",
+							"value": "5"
+						},
+						{
+							"key": "category",
+							"value": "11"
+						},
+						{
+							"key": "difficulty",
+							"value": "easy"
+						},
+						{
+							"key": "type",
+							"value": "multiple"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
