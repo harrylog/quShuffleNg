@@ -18,10 +18,6 @@ export class QuizDataService {
     amount: 5, category: 27, difficulty: difficulty.easy, type: 'multiple'
   }
 
-  // params = new HttpParams()
-  //   .set('amount', 5)
-  //   .set('category', +this.selectedParams['category'] as number)
-  //   .set('difficulty', this.selectedParams['difficulty']);
 
   constructor(private http: HttpClient,
   ) {
