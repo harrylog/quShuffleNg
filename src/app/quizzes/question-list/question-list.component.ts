@@ -33,7 +33,7 @@ export class QuestionListComponent implements OnInit {
           console.log(data)
 
           this.questions = data['questions'];
-          data['questions'].map((qu) => {
+          data['questions'].map((qu:Question) => {
 
             qu.allPossAns = [...qu['incorrect_answers'], qu['correct_answer']]
             qu.allPossAns = this.shuffleArray(qu.allPossAns)

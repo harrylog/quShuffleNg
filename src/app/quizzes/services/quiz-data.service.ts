@@ -7,28 +7,31 @@ import { Category, quizProp } from '../models/category.model';
 import { Question } from '../models/question.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QuizDataService {
-
-  categories: Category[] = []
-  questions: Question[] = []
+  categories: Category[] = [];
+  questions: Question[] = [];
 
   selectedParams: quizProp = {
-    amount: 5, category: 27, difficulty: difficulty.easy, type: 'multiple'
-  }
+    amount: 5,
+    category: 27,
+    difficulty: difficulty.easy,
+    type: 'multiple',
+  };
 
-
-  constructor(private http: HttpClient,
-  ) {
-
-  }
-
+  constructor(private http: HttpClient) {}
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>('https://opentdb.com/api_category.php')
-      .pipe(map(response => response['trivia_categories']), map(data => this.categories = data),
-        tap(() => console.log(this.categories)))
+    return this.http
+      .get<{ [key: string]: Category[] }>(
+        'https://opentdb.com/api_category.php'
+      )
+      .pipe(
+        map((response) => response['trivia_categories']),
+        map((data) => (this.categories = data)),
+        tap(() => console.log(this.categories))
+      );
   }
 
   getQuestions(): Observable<Question[]> {
@@ -36,13 +39,19 @@ export class QuizDataService {
       .set('amount', 5)
       .set('category', this.selectedParams['category'])
       .set('difficulty', this.selectedParams['difficulty'])
-      .set('type', this.selectedParams['type']);
+      //.set('type', this.selectedParams['type']);
 
-    return this.http.get<Question[]>('https://opentdb.com/api.php', { params })
+    return this.http
+      .get<{ [key: string]: Question[] }>('https://opentdb.com/api.php', {
+        params,
+      })
 
-      .pipe(map(response => response['results']), map(data => this.questions = data),
+      .pipe(
+        map((response) => response['results']),
+        map((data) => (this.questions = data)),
         tap(() => {
           // console.log(this.questions)
-        }))
+        })
+      );
   }
 }
