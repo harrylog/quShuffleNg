@@ -7,39 +7,42 @@ import { difficulty } from '../models/difficulty.enum';
 @Component({
   selector: 'app-quiz-properties',
   templateUrl: './quiz-properties.component.html',
-  styleUrls: ['./quiz-properties.component.css']
+  styleUrls: ['./quiz-properties.component.css'],
 })
-
-
-
 export class QuizPropertiesComponent implements OnInit {
+  constructor(
+    public fb: FormBuilder,
+    private quizDataservice: QuizDataService
+  ) {}
 
-
-  constructor(public fb: FormBuilder, private quizDataservice: QuizDataService) { }
-
-  categories: Category[]=[]
-  difficultyEnum = difficulty
-  paramsToCreateQuiz = {}
+  categories: Category[] = [];
+  difficultyEnum = difficulty;
+  paramsToCreateQuiz = {};
   ngOnInit(): void {
-    this.quizDataservice.getCategories()
-      .subscribe(categories => this.categories = categories)
+    this.quizDataservice
+      .getCategories()
+      .subscribe((categories) => (this.categories = categories));
   }
 
   isSubmitted = false;
 
-
   questionsProps = this.fb.group({
     categoryName: ['', [Validators.required]],
     difficulty: ['', [Validators.required]],
+  });
 
-  },
-  );
+  //from the docs "" The following still have type any.
+  //   Local references to DOM elements
+  // The $event object
+  // Safe navigation expressions"
+
+  //https://angular.io/guide/template-typecheck
 
   changeCategory(e: any) {
     // console.log(e.target.value);
-    let selectedCategory = e.target.value//.split(' ')
-    let selectedCategoryInd = selectedCategory.split(' ')[0]
-    this.quizDataservice.selectedParams['category'] = selectedCategoryInd
+    let selectedCategory = e.target.value; //.split(' ')
+    let selectedCategoryInd = selectedCategory.split(' ')[0];
+    this.quizDataservice.selectedParams['category'] = selectedCategoryInd;
 
     // console.log(+selectedCategoryInd)
     this.categoryName?.setValue(selectedCategory);
@@ -51,20 +54,18 @@ export class QuizPropertiesComponent implements OnInit {
   changeDifficulty(e: any) {
     // console.log(e.target.value);
     this.difficulty?.setValue(e.target.value);
-    let selectedDiff = e.target.value
-    this.quizDataservice.selectedParams['difficulty'] = selectedDiff
-
+    let selectedDiff = e.target.value;
+    this.quizDataservice.selectedParams['difficulty'] = selectedDiff;
   }
   get difficulty() {
     return this.questionsProps.get('difficulty');
   }
 
-
   onSubmit(): void {
     // console.log(this.questionsProps.value);
     console.log(this.quizDataservice.selectedParams['category']);
     console.log(this.quizDataservice.selectedParams['difficulty']);
-    this.quizDataservice.getQuestions()
+    this.quizDataservice.getQuestions();
     this.isSubmitted = true;
     if (!this.questionsProps.valid) {
       false;
@@ -72,7 +73,4 @@ export class QuizPropertiesComponent implements OnInit {
       console.log(JSON.stringify(this.questionsProps.value));
     }
   }
-
-
 }
-
