@@ -17,7 +17,7 @@ export class QuizPropertiesComponent implements OnInit {
 
   constructor(public fb: FormBuilder, private quizDataservice: QuizDataService) { }
 
-  categories: Category[]
+  categories: Category[]=[]
   difficultyEnum = difficulty
   paramsToCreateQuiz = {}
   ngOnInit(): void {
