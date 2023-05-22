@@ -43,7 +43,7 @@ export class QuestionListComponent implements OnInit {
       );
   }
 
-  selectChoice(qind, aind, answer) {
+  selectChoice(qind:number, aind:number, answer:string) {
     let isCorrect = this.questions[qind]['correct_answer'] == answer
     console.log(isCorrect)
     isCorrect == true ? this.correctButtons[qind] = aind : this.inCorrectButtons[qind] = aind
