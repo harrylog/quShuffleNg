@@ -12,9 +12,7 @@ import { Question } from '../models/question.model';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.css'],
 })
-export class ResultsComponent
-  implements OnInit, AfterViewInit, AfterContentInit
-{
+export class ResultsComponent implements OnInit {
   questions: Question[] = [];
   results: number[] = [];
   correctRes: number[] = [];
@@ -72,13 +70,6 @@ export class ResultsComponent
         return false;
       }
     });
-  }
-
-  ngAfterViewInit(): void {
-    // this.calcResAndDecideColor(this.corrCnt, this.inCorrCnt);
-  }
-  ngAfterContentInit(): void {
-    // this.calcResAndDecideColor(this.corrCnt, this.inCorrCnt);
   }
 
   calcResAndDecideColor(right: number, wrong: number) {
