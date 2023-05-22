@@ -42,7 +42,7 @@ export class QuizPropertiesComponent implements OnInit {
     this.quizDataservice.selectedParams['category'] = selectedCategoryInd
 
     // console.log(+selectedCategoryInd)
-    this.categoryName.setValue(selectedCategory);
+    this.categoryName?.setValue(selectedCategory);
   }
   get categoryName() {
     return this.questionsProps.get('categoryName');
@@ -50,7 +50,7 @@ export class QuizPropertiesComponent implements OnInit {
 
   changeDifficulty(e: any) {
     // console.log(e.target.value);
-    this.difficulty.setValue(e.target.value);
+    this.difficulty?.setValue(e.target.value);
     let selectedDiff = e.target.value
     this.quizDataservice.selectedParams['difficulty'] = selectedDiff
 
