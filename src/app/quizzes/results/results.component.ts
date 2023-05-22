@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ResultsDataService } from '../services/results-data.service';
 import { Question } from '../models/question.model';
 
@@ -7,11 +12,15 @@ import { Question } from '../models/question.model';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.css'],
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent
+  implements OnInit, AfterViewInit, AfterContentInit
+{
   questions: Question[] = [];
   results: number[] = [];
   correctRes: number[] = [];
   inCorrectRes: number[] = [];
+  corrCnt: number = 0;
+  inCorrCnt: number = 0;
 
   correctnessArray: boolean[] = [];
   correctAnswers: string[] = [];
@@ -41,6 +50,7 @@ export class ResultsComponent implements OnInit {
       this.inCorrectRes
     );
     console.log(this.correctnessArray);
+    this.calcResAndDecideColor(this.corrCnt, this.inCorrCnt);
   }
 
   transformSelectedToBoolValues(
@@ -50,12 +60,36 @@ export class ResultsComponent implements OnInit {
   ) {
     return results.map((val, ind) => {
       if (val == correctRes[ind]) {
+        this.corrCnt++;
         return true;
       } else if (val == inCorrectRes[ind]) {
+        this.inCorrCnt++;
+
         return false;
       } else {
+        this.inCorrCnt++;
+
         return false;
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    // this.calcResAndDecideColor(this.corrCnt, this.inCorrCnt);
+  }
+  ngAfterContentInit(): void {
+    // this.calcResAndDecideColor(this.corrCnt, this.inCorrCnt);
+  }
+
+  calcResAndDecideColor(right: number, wrong: number) {
+    const sum = right + wrong;
+    console.log(sum);
+    if (right <= 1) {
+      return 'red';
+    } else if (right <= 3) {
+      return 'yellow';
+    } else {
+      return 'green';
+    }
   }
 }

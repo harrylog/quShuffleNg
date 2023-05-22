@@ -16,6 +16,10 @@
   </button>
 </div>
 
+<p [style.background-color]="calcResAndDecideColor(corrCnt, inCorrCnt)">
+  result {{ corrCnt }} / {{ inCorrCnt + corrCnt }}
+</p>
+
 <div>
   <button class="btn btn-warning" routerLink="/quizzes">create new quiz</button>
 </div>
