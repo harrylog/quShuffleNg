@@ -2,13 +2,17 @@
 
 <ng-container *ngIf="questions?.length; else nothing">
   <div *ngFor="let qu of questions; let quIndex = index">
-    <p>{{ quIndex + 1 }}. {{ qu.question }}</p>
+    <p [innerHTML]="sanitizeData(qu.question)">
+      {{ quIndex + 1 }}. {{ qu.question }}
+    </p>
     <button
       id="createBtn"
       *ngFor="let answer of qu.allPossAns; let ansIndex = index"
+      [innerHTML]="sanitizeData(qu.allPossAns[ansIndex])"
       (click)="selectChoice(quIndex, ansIndex, answer)"
       class="button btn btn-secondary"
       [class.selected]="selectedButtonIndices[quIndex] === ansIndex"
+      [innerHTML]="sanitizeData(answer)"
     >
       {{ answer }}
     </button>

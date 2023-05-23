@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { singleResult } from '../models/singleResult.model';
 import { ResultsDataService } from '../services/results-data.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-question-list',
@@ -21,7 +22,7 @@ export class QuestionListComponent implements OnInit {
   inCorrectButtons: number[] = []
   correctAnswers: string[] = []
   constructor(public fb: FormBuilder,
-    private quizDataservice: QuizDataService,
+    private quizDataservice: QuizDataService, private sanitizer: DomSanitizer,
     private route: ActivatedRoute, private resDataService: ResultsDataService,
     private router: Router) { }
 
@@ -33,7 +34,7 @@ export class QuestionListComponent implements OnInit {
           console.log(data)
 
           this.questions = data['questions'];
-          data['questions'].map((qu:Question) => {
+          data['questions'].map((qu: Question) => {
 
             qu.allPossAns = [...qu['incorrect_answers'], qu['correct_answer']]
             qu.allPossAns = this.shuffleArray(qu.allPossAns)
@@ -43,7 +44,12 @@ export class QuestionListComponent implements OnInit {
       );
   }
 
-  selectChoice(qind:number, aind:number, answer:string) {
+  sanitizeData(data: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(data);
+  }
+
+
+  selectChoice(qind: number, aind: number, answer: string) {
     let isCorrect = this.questions[qind]['correct_answer'] == answer
     console.log(isCorrect)
     isCorrect == true ? this.correctButtons[qind] = aind : this.inCorrectButtons[qind] = aind

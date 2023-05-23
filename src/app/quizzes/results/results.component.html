@@ -1,5 +1,7 @@
 <div *ngFor="let qu of questions; let quIndex = index">
-  <p>{{ quIndex + 1 }}. {{ qu.question }}</p>
+  <p [innerHTML]="sanitizeData(qu.question)">
+    {{ quIndex + 1 }}. {{ qu.question }}
+  </p>
   <button
     id="createBtn"
     *ngFor="let answer of qu.allPossAns; let ansIndex = index"

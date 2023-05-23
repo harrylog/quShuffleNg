@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { ResultsDataService } from '../services/results-data.service';
 import { Question } from '../models/question.model';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-results',
@@ -22,7 +23,7 @@ export class ResultsComponent implements OnInit {
 
   correctnessArray: boolean[] = [];
   correctAnswers: string[] = [];
-  constructor(private resDataService: ResultsDataService) {}
+  constructor(private resDataService: ResultsDataService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.questions = this.resDataService.getQus();
@@ -49,6 +50,10 @@ export class ResultsComponent implements OnInit {
     );
     console.log(this.correctnessArray);
     this.calcResAndDecideColor(this.corrCnt, this.inCorrCnt);
+  }
+
+  sanitizeData(data: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(data);
   }
 
   transformSelectedToBoolValues(
