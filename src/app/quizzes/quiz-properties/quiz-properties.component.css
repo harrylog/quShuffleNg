@@ -46,9 +46,6 @@ label {
   padding: 15px;
   font-size: 14px;
   color: black;
-  border-radius: 0;
-  background: #fbbe02;
-  border: 1px solid greenyellow;
 }
 .custom-select {
   height: auto;
@@ -60,10 +57,7 @@ label {
   background-color: #fff;
   border: 2px solid #000;
 }
-.custom-control-input:checked ~ .custom-control-label::before {
-  border-color: #e91e63;
-  background-color: #e91e63;
-}
+
 .custom-control-input:focus ~ .custom-control-label::before {
   box-shadow: none;
 }
@@ -83,4 +77,44 @@ body .btn-danger:hover {
   background: greenyellow;
   border-color: greenyellow;
   color: black;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(14, 168, 30, 0.3);
+  width: 400px;
+}
+
+.form {
+  padding: 30px 40px;
+}
+.form-control {
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.my-select {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  padding: 5px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.my-select:after {
+  content: "\25BC";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Styling the dropdown options */
+.my-select option {
+  background-color: #fff;
+  color: #000;
 }

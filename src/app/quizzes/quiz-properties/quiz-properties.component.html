@@ -1,33 +1,40 @@
-<form [formGroup]="questionsProps" (ngSubmit)="onSubmit()">
+<form [formGroup]="questionsProps" (ngSubmit)="onSubmit()" class="form">
   <div class="d-grid">
-    <h1>quiz form</h1>
-    <select
-      class="custom-select mb-3"
-      (change)="changeCategory($event)"
-      formControlName="categoryName"
-    >
-      <option id="categorySelect" value="">Choose Category</option>
-      <option *ngFor="let category of categories">
-        {{ category.id }} - {{ category.name }}
-      </option>
-    </select>
-    <select
-      class="custom-select mb-3"
-      (change)="changeDifficulty($event)"
-      formControlName="difficulty"
-    >
-      <option id="difficultySelect" value="">Choose difficulty</option>
-      <option *ngFor="let diff of difficultyEnum | keyvalue">
-        {{ diff.key }}
-      </option>
-    </select>
-    <!-- error block -->
-    <div class="invalid-feedback" *ngIf="isSubmitted && questionsProps.invalid">
-      <sup>*</sup>Please provide questions category
+    <div class="container">
+      <h1>quiz form</h1>
+      <select
+        class="my-select"
+        (change)="changeCategory($event)"
+        formControlName="categoryName"
+      >
+        <option id="categorySelect" value="">Choose Category</option>
+        <option *ngFor="let category of categories">
+          {{ category.id }} - {{ category.name }}
+        </option>
+      </select>
+      <select
+        class="my-select"
+        (change)="changeDifficulty($event)"
+        formControlName="difficulty"
+      >
+        <option id="difficultySelect" value="">Choose difficulty</option>
+        <option *ngFor="let diff of difficultyEnum | keyvalue">
+          {{ diff.key }}
+        </option>
+      </select>
+      <!-- error block -->
+      <div
+        class="invalid-feedback"
+        *ngIf="isSubmitted && questionsProps.invalid"
+      >
+        <sup>*</sup>Please provide questions category
+      </div>
+      <div class="form-control">
+        <a routerLink="/quizzes/quiz" (click)="onSubmit()">
+          <button class="btn btn-danger btn-lg btn-block">Create</button>
+        </a>
+      </div>
     </div>
-    <a routerLink="/quizzes/quiz" (click)="onSubmit()">
-      <button class="btn btn-danger btn-lg btn-block">Create</button>
-    </a>
   </div>
 </form>
 
